@@ -11,10 +11,7 @@ def safe(xs):
     return decreasing(xs) or increasing(xs)
 
 def safe2(xs):
-    for drop in range(len(xs)):
-        if safe(xs[:drop] + xs[drop + 1:]):
-            return True
-    return False
+    return any(safe(xs[:drop] + xs[drop + 1:]) for drop in range(len(xs)))
 
 def solve(r: aoc.Reader) -> None:
     lines = r.read()
