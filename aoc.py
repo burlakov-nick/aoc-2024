@@ -6,6 +6,7 @@ from typing import Callable
 from typing_extensions import Any
 
 import grid
+from vec import V
 
 
 class Reader:
@@ -15,11 +16,16 @@ class Reader:
     def read_lines(self) -> list[str]:
         return self.f.read().splitlines()
 
-    def read_map_ints(self) -> list[list[int]]:
+    def read_grid_dict(self) -> tuple[dict[V, str], int, int]:
+        lines = self.read_lines()
+        n, m = len(lines), len(lines[0])
+        return {V(x, y): lines[x][y] for x in range(n) for y in range(m)}, n, m
+
+    def read_grid_ints(self) -> list[list[int]]:
         return [list(map(int, line)) for line in self.read_lines()]
 
-    def read_map_dict(self) -> dict[tuple[int, int], int]:
-        matrix = self.read_map_ints()
+    def read_grid_int_dict(self) -> dict[tuple[int, int], int]:
+        matrix = self.read_grid_ints()
         return {(x, y): v for x, y, v in grid.cells(matrix)}
 
     def read(
@@ -51,17 +57,22 @@ def get_filename(day: int, name: str) -> str:
     return f"day_{day:02d}/{name}.txt"
 
 
+def print_delimeted(s: str, width: int = 80) -> None:
+    print(f"°*°*°*°*°*°*°*°*°*{s.center(20)}°*°*°*°*°*°*°*°*°*")
+
+
 def run(day: int, sample: bool, test: bool) -> None:
-    print(f"Day {day:02d}")
+    print_delimeted(f"Day {day:02d}")
     day_module = importlib.import_module(f"day_{day:02d}")
     if sample:
-        print("Run sample")
+        print_delimeted("Run sample")
         with open(get_filename(day, "sample")) as f:
             day_module.solve(Reader(f))
     if test:
-        print("Run test")
+        print_delimeted("Run test")
         with open(get_filename(day, "test")) as f:
             day_module.solve(Reader(f))
+    print_delimeted("the end")
 
 
 def measure(name: str, f: Callable) -> Any:

@@ -21,6 +21,9 @@ class V:
     def __mul__(self, other: int) -> "V":
         return V(self.x * other, self.y * other)
 
+    def __neg__(self) -> "V":
+        return V(-self.x, -self.y)
+
     def __eq__(self, other: object) -> bool:
         assert isinstance(other, V)
         return self.x == other.x and self.y == other.y
@@ -30,6 +33,9 @@ class V:
 
     def __repr__(self) -> str:
         return (self.x, self.y).__repr__()
+
+    def __bool__(self) -> bool:
+        return self.x != 0 and self.y != 0
 
     def dist_to(self, other) -> int:
         return abs(self.x - other.x) + abs(self.y - other.y)
