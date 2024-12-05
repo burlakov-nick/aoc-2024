@@ -3,7 +3,7 @@ from functools import cmp_to_key
 
 
 def solve(r: aoc.Reader) -> None:
-    orders, seqs = r.read_blocks(to_remove=["|", ","])
+    orders, seqs = r.read_blocks(remove=["|", ","])
     part_1, part_2 = 0, 0
     cmp = {
         **{(x, y): -1 for x, y in orders},

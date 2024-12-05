@@ -29,17 +29,17 @@ class Reader:
         return {(x, y): v for x, y, v in grid.cells(matrix)}
 
     def read(
-        self, parse: Callable | None = None, to_remove=None
+        self, parse: Callable | None = None, remove=None
     ) -> list:
-        lines = [clean(line, to_remove) for line in self.read_lines()]
+        lines = [clean(line, remove) for line in self.read_lines()]
         return [parse(line) if parse else parse_values(line) for line in lines]
 
     def read_blocks(
         self,
         parse: Callable | None = None,
-        to_remove: str | list | None = None,
+        remove: str | list | None = None,
     ) -> list:
-        lines = [clean(line, to_remove) for line in self.read_lines()]
+        lines = [clean(line, remove) for line in self.read_lines()]
         blocks = []
         block = []
         for line in lines:
@@ -81,13 +81,13 @@ def measure(name: str, f: Callable) -> Any:
     return result
 
 
-def clean(line: str, to_remove: str | list | None) -> str:
-    if not to_remove:
+def clean(line: str, remove: str | list | None) -> str:
+    if not remove:
         return line
-    if isinstance(to_remove, str):
-        return line.replace(to_remove, " ")
+    if isinstance(remove, str):
+        return line.replace(remove, " ")
     else:
-        for t in to_remove:
+        for t in remove:
             line = line.replace(t, " ")
     return line
 
