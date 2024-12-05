@@ -29,18 +29,17 @@ class Reader:
         return {(x, y): v for x, y, v in grid.cells(matrix)}
 
     def read(
-        self, sep: str | None = None, parse: Callable | None = None, trim=None
+        self, parse: Callable | None = None, to_remove=None
     ) -> list:
-        lines = [clean(line, trim) for line in self.read_lines()]
-        return [parse(line) if parse else parse_values(line, sep) for line in lines]
+        lines = [clean(line, to_remove) for line in self.read_lines()]
+        return [parse(line) if parse else parse_values(line) for line in lines]
 
     def read_blocks(
         self,
-        sep: str | None = None,
         parse: Callable | None = None,
-        trim: str | list | None = None,
+        to_remove: str | list | None = None,
     ) -> list:
-        lines = [clean(line, trim) for line in self.read_lines()]
+        lines = [clean(line, to_remove) for line in self.read_lines()]
         blocks = []
         block = []
         for line in lines:
@@ -48,7 +47,7 @@ class Reader:
                 blocks.append(block)
                 block = []
             else:
-                block.append(parse(line) if parse else parse_values(line, sep))
+                block.append(parse(line) if parse else parse_values(line))
         blocks.append(block)
         return blocks
 
@@ -82,13 +81,13 @@ def measure(name: str, f: Callable) -> Any:
     return result
 
 
-def clean(line: str, trim: str | list | None) -> str:
-    if not trim:
+def clean(line: str, to_remove: str | list | None) -> str:
+    if not to_remove:
         return line
-    if isinstance(trim, str):
-        return line.replace(trim, " ")
+    if isinstance(to_remove, str):
+        return line.replace(to_remove, " ")
     else:
-        for t in trim:
+        for t in to_remove:
             line = line.replace(t, " ")
     return line
 
