@@ -2,6 +2,8 @@ from collections import defaultdict
 
 from typing_extensions import Iterable
 
+from vec import V
+
 
 def batch(lst, n):
     for i in range(0, len(lst), n):
@@ -30,3 +32,9 @@ def get_submasks(mask: int) -> Iterable:
         if x == 0:
             break
         x = (x - 1) & mask
+
+
+def iter_grid(n: int, m: int) -> Iterable[V]:
+    for x in range(n):
+        for y in range(m):
+            yield V(x, y)
