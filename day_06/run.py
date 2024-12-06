@@ -1,36 +1,37 @@
 import aoc
-from iter import iter_grid
-from vec import V
+from grid import range_2d
 
 
 def solve(r: aoc.Reader) -> None:
-    grid, n, m = r.read_grid_dict()
-    start = next(v for v in iter_grid(n, m) if grid[v] == "^")
-    directions = [V(-1, 0), V(0, 1), V(1, 0), V(0, -1)]
+    grid, n, m = r.read_grid_str()
 
-    def walk(pos, dir, visited):
-        while 0 <= pos.x < n and 0 <= pos.y < m:
-            if (pos, dir) in visited:
+    sx, sy = next((x, y) for x, y in range_2d(n, m) if grid[x][y] == "^")
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, 0, -1]
+
+    def walk(x, y, dir, visited):
+        while 0 <= x < n and 0 <= y < m:
+            if (x, y, dir) in visited:
                 return "LOOP"
-            visited.add((pos, dir))
-            nxt = pos + directions[dir]
-            if grid.get(nxt) == "#":
+            visited.add((x, y, dir))
+            nx, ny = x + dx[dir], y + dy[dir]
+            if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] == "#":
                 dir = (dir + 1) % 4
             else:
-                pos = nxt
+                x, y = nx, ny
         return visited
 
     print("Part One")
-    visited = walk(start, 0, set())
-    visited = {v for v, dir in visited}
+    visited = walk(sx, sy, 0, set())
+    visited = {(x, y) for x, y, dir in visited}
     print(len(visited))
 
     print("Part Two")
     result = 0
-    for v in iter_grid(n, m):
-        if grid[v] == "." and v in visited:
-            grid[v] = "#"
-            if walk(start, 0, set()) == "LOOP":
+    for x, y in range_2d(n, m):
+        if grid[x][y] == "." and (x, y) in visited:
+            grid[x][y] = "#"
+            if walk(sx, sy, 0, set()) == "LOOP":
                 result += 1
-            grid[v] = "."
+            grid[x][y] = "."
     print(result)

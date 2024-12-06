@@ -7,7 +7,7 @@ DIRECTIONS = [V(0, -1), V(0, 1), V(-1, 0), V(1, 0), *DIAGONAL_DIRECTIONS]
 
 
 def solve(r: aoc.Reader) -> None:
-    grid, n1, n2 = r.read_grid_dict()
+    grid, n1, n2 = r.read_grid_dict_v()
 
     print("Part One")
 

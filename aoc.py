@@ -16,17 +16,22 @@ class Reader:
     def read_lines(self) -> list[str]:
         return self.f.read().splitlines()
 
-    def read_grid_dict(self) -> tuple[dict[V, str], int, int]:
+    def read_grid_str(self) -> tuple[list[list[str]], int, int]:
         lines = self.read_lines()
         n, m = len(lines), len(lines[0])
-        return {V(x, y): lines[x][y] for x in range(n) for y in range(m)}, n, m
+        grid = [[ch for ch in row] for row in lines]
+        return grid, n, m
 
-    def read_grid_ints(self) -> list[list[int]]:
+    def read_grid_int(self) -> list[list[int]]:
         return [list(map(int, line)) for line in self.read_lines()]
 
     def read_grid_int_dict(self) -> dict[tuple[int, int], int]:
-        matrix = self.read_grid_ints()
+        matrix = self.read_grid_int()
         return {(x, y): v for x, y, v in grid.cells(matrix)}
+
+    def read_grid_dict_v(self) -> tuple[dict[V, str], int, int]:
+        g, n, m = self.read_grid_str()
+        return {V(x, y): g[x][y] for x, y, v in grid.cells(g)}, n, m
 
     def read(
         self, parse: Callable | None = None, remove=None
