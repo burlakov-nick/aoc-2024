@@ -16,6 +16,7 @@ class Reader:
     def read_lines(self) -> list[str]:
         return self.f.read().splitlines()
 
+    # rethink this 4 methods
     def read_grid_str(self) -> tuple[list[list[str]], int, int]:
         lines = self.read_lines()
         n, m = len(lines), len(lines[0])
