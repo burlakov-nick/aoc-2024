@@ -15,9 +15,6 @@ def solve(r: aoc.Reader) -> None:
         if p2.in_box(n, m):
             yield p2
 
-        yield left + (left - right)
-        yield right + (right - left)
-
     def get_antinodes_2(left, right):
         p, step = left, left - right
         while p.in_box(n, m):

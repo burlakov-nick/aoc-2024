@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from typing_extensions import Iterable
+from typing_extensions import Callable, Iterable
 
 
 def batch(lst, n):
@@ -14,6 +14,13 @@ def transpose[T](list2: list[list[T]]) -> list[list[T]]:
 
 def flatten[T](list2: list[list[T]]) -> list[T]:
     return [y for x in list2 for y in x]
+
+
+def group_by(xs: Iterable, key: Callable) -> dict:
+    r = defaultdict(list)
+    for x in xs:
+        r[key(x)].append(x)
+    return r
 
 
 def freq[T](xs: list[T]) -> dict[T, int]:
