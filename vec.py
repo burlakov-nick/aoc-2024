@@ -68,6 +68,9 @@ class V:
     def dir(self) -> "V":
         return V(sign(self.x), sign(self.y))
 
+    def in_box(self, n: int, m: int) -> bool:
+        return 0 <= self.x < n and 0 <= self.y < m
+
 
 class V3:
     def __init__(self, x: int, y: int, z: int):
