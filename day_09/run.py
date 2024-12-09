@@ -54,9 +54,7 @@ def part_2(line) -> int:
 
 def solve(r: aoc.Reader) -> None:
     line = r.read_lines()[0]
-
     print("Part One")
     print(part_1(line))
-
     print("Part Two")
     print(part_2(line))
