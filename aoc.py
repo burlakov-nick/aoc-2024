@@ -34,6 +34,10 @@ class Reader:
         g, n, m = self.read_grid_str()
         return {V(x, y): g[x][y] for x, y, v in grid.cells(g)}, n, m
 
+    def read_grid_dict_v_int(self) -> tuple[dict[V, int], int, int]:
+        g, n, m = self.read_grid_str()
+        return {V(x, y): int(g[x][y]) for x, y, v in grid.cells(g)}, n, m
+
     def read(
         self, parse: Callable | None = None, remove=None
     ) -> list:
