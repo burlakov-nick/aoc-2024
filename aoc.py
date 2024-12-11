@@ -20,8 +20,7 @@ class Reader:
     def read_grid_str(self) -> tuple[list[list[str]], int, int]:
         lines = self.read_lines()
         n, m = len(lines), len(lines[0])
-        grid = [[ch for ch in row] for row in lines]
-        return grid, n, m
+        return [[ch for ch in row] for row in lines], n, m
 
     def read_grid_int(self) -> list[list[int]]:
         return [list(map(int, line)) for line in self.read_lines()]
@@ -66,22 +65,22 @@ def get_filename(day: int, name: str) -> str:
     return f"day_{day:02d}/{name}.txt"
 
 
-def print_delimeted(s: str, width: int = 80) -> None:
+def print_delimited(s: str) -> None:
     print(f"°*°*°*°*°*°*°*°*°*{s.center(20)}°*°*°*°*°*°*°*°*°*")
 
 
 def run(day: int, sample: bool, test: bool) -> None:
-    print_delimeted(f"Day {day:02d}")
+    print_delimited(f"Day {day:02d}")
     day_module = importlib.import_module(f"day_{day:02d}")
     if sample:
-        print_delimeted("Run sample")
+        print_delimited("Run sample")
         with open(get_filename(day, "sample")) as f:
             day_module.solve(Reader(f))
     if test:
-        print_delimeted("Run test")
+        print_delimited("Run test")
         with open(get_filename(day, "test")) as f:
             day_module.solve(Reader(f))
-    print_delimeted("the end")
+    print_delimited("the end")
 
 
 def measure(name: str, f: Callable) -> Any:
