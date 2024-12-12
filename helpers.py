@@ -3,6 +3,18 @@ from collections import defaultdict
 from typing_extensions import Callable, Iterable
 
 
+def range_2d(n: int, m: int) -> Iterable[tuple[int, int]]:
+    for x in range(n):
+        for y in range(m):
+            yield x, y
+
+
+def cells[T](matrix: list[list[T]]) -> Iterable[tuple[int, int, T]]:
+    for x, row in enumerate(matrix):
+        for y, v in enumerate(row):
+            yield x, y, v
+
+
 def batch(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i : i + n]

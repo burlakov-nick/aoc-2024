@@ -5,7 +5,7 @@ from typing import Callable
 
 from typing_extensions import Any
 
-import grid
+import helpers
 from vec import V
 
 
@@ -27,15 +27,15 @@ class Reader:
 
     def read_grid_int_dict(self) -> dict[tuple[int, int], int]:
         matrix = self.read_grid_int()
-        return {(x, y): v for x, y, v in grid.cells(matrix)}
+        return {(x, y): v for x, y, v in helpers.cells(matrix)}
 
     def read_grid_dict_v(self) -> tuple[dict[V, str], int, int]:
         g, n, m = self.read_grid_str()
-        return {V(x, y): g[x][y] for x, y, v in grid.cells(g)}, n, m
+        return {V(x, y): g[x][y] for x, y, v in helpers.cells(g)}, n, m
 
     def read_grid_dict_v_int(self) -> tuple[dict[V, int], int, int]:
         g, n, m = self.read_grid_str()
-        return {V(x, y): int(g[x][y]) for x, y, v in grid.cells(g)}, n, m
+        return {V(x, y): int(g[x][y]) for x, y, v in helpers.cells(g)}, n, m
 
     def read(
         self, parse: Callable | None = None, remove=None

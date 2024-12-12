@@ -1,5 +1,5 @@
 import aoc
-from grid import range_2d
+from helpers import range_2d
 
 
 def solve(r: aoc.Reader) -> None:
