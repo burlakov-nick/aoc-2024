@@ -72,6 +72,9 @@ class V:
         return 0 <= self.x < n and 0 <= self.y < m
 
 
+DIRECTIONS_4 = [V(0, -1), V(0, 1), V(-1, 0), V(1, 0)]
+
+
 class V3:
     def __init__(self, x: int, y: int, z: int):
         self.x: int = x
