@@ -1,5 +1,7 @@
 import aoc
-from vec import V, DIRECTIONS_4 as DIRECTIONS
+from vec import V
+
+DIRECTIONS = [V(-1, 0), V(0, 1), V(1, 0), V(0, -1)]
 
 
 def get_region(v, visited, grid):
@@ -17,14 +19,15 @@ def get_region(v, visited, grid):
     return inside, outside
 
 
-def get_side(v, dir, inside, outside, visited):
-    if (v, dir) in visited or v + dir not in inside:
-        return 0
-    visited.add((v, dir))
-    for to in v.neighbors_4():
-        if to in outside and to + dir in inside:
-            get_side(to, dir, inside, outside, visited)
-    return 1
+def get_corners(inside, outside):
+    for v in inside:
+        for i in range(4):
+            d1, d2 = DIRECTIONS[i], DIRECTIONS[(i + 1) % 4]
+            if (
+                v + d1 in outside and v + d2 in outside or
+                v + d1 in inside and v + d2 in inside and v + d1 + d2 in outside
+            ):
+                yield v
 
 
 def solve(r: aoc.Reader) -> None:
@@ -34,12 +37,7 @@ def solve(r: aoc.Reader) -> None:
     regions = [get_region(p, visited, grid) for p in grid.keys() if p not in visited]
 
     print("Part One")
-    print(sum(len(i) * len(o) for i, o in regions))
+    print(sum(len(inside) * len(outside) for inside, outside in regions))
 
     print("Part Two")
-    part_2 = 0
-    for inside, outside in regions:
-        visited = set()
-        sides = sum(get_side(v, dir, inside, outside, visited) for v in outside for dir in DIRECTIONS)
-        part_2 += len(inside) * sides
-    print(part_2)
+    print(sum(len(inside) * len(list(get_corners(inside, outside))) for inside, outside in regions))
