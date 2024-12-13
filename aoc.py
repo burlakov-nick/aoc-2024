@@ -106,6 +106,10 @@ def parse_values(s: str, sep: str | None = None) -> list[int | float | str]:
     return [parse_value(item) for item in parts if item != ""]
 
 
+def parse_ints(s: str) -> list[int]:
+    return [int(x) for x in re.findall(r"\d+", s)]
+
+
 def parse_value(s: str) -> int | float | str:
     i = try_parse_int(s)
     if i is not None:
