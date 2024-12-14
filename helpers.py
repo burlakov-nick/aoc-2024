@@ -35,7 +35,7 @@ def group_by(xs: Iterable, key: Callable) -> dict:
     return r
 
 
-def freq[T](xs: list[T]) -> dict[T, int]:
+def freq[T](xs: Iterable[T]) -> dict[T, int]:
     f = defaultdict(int)
     for x in xs:
         f[x] += 1

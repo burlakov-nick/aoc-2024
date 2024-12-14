@@ -107,7 +107,7 @@ def parse_values(s: str, sep: str | None = None) -> list[int | float | str]:
 
 
 def parse_ints(s: str) -> list[int]:
-    return [int(x) for x in re.findall(r"\d+", s)]
+    return [int(x) for x in re.findall(r"-?\d+", s)]
 
 
 def parse_value(s: str) -> int | float | str:
