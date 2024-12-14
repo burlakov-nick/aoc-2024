@@ -1,5 +1,5 @@
 import aoc
-from helpers import freq
+from helpers import frequencies
 from vec import V
 
 
@@ -21,7 +21,7 @@ def solve(r: aoc.Reader) -> None:
     print("Part One")
     positions = [move(p, v, 100) for p, v in robots]
     quadrants = [quadrant(p) for p in positions if quadrant(p) is not None]
-    freqs = freq(quadrants)
+    freqs = frequencies(quadrants)
     print(freqs[0] * freqs[1] * freqs[2] * freqs[3])
 
     print("Part Two")
