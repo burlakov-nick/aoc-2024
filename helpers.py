@@ -9,7 +9,7 @@ def range_2d(n: int, m: int) -> Iterable[tuple[int, int]]:
             yield x, y
 
 
-def cells[T](matrix: list[list[T]]) -> Iterable[tuple[int, int, T]]:
+def cells[T](matrix) -> Iterable:
     for x, row in enumerate(matrix):
         for y, v in enumerate(row):
             yield x, y, v
