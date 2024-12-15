@@ -33,15 +33,11 @@ def get_boxes_to_move(grid, p, dir, visited):
         return
     visited.add(p)
     yield p
-    match grid[p]:
-        case "O":
-            yield from get_boxes_to_move(grid, p + dir, dir, visited)
-        case "[":
-            yield from get_boxes_to_move(grid, p + V(0, 1), dir, visited)
-            yield from get_boxes_to_move(grid, p + dir, dir, visited)
-        case "]":
-            yield from get_boxes_to_move(grid, p + V(0, -1), dir, visited)
-            yield from get_boxes_to_move(grid, p + dir, dir, visited)
+    yield from get_boxes_to_move(grid, p + dir, dir, visited)
+    if grid[p] == "[":
+        yield from get_boxes_to_move(grid, p + V(0, 1), dir, visited)
+    if grid[p] == "]":
+        yield from get_boxes_to_move(grid, p + V(0, -1), dir, visited)
 
 
 def try_move(grid, to_move, dir) -> bool:
