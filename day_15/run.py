@@ -11,7 +11,7 @@ DIRECTIONS = {
 }
 
 
-def parse(lines: list[str], replacements = None):
+def parse(lines: list[str]):
     empty_index = lines.index("")
     grid, moves = lines[:empty_index], lines[empty_index + 1:]
     n, m = len(grid), len(grid[0])
