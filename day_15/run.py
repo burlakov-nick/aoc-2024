@@ -1,4 +1,3 @@
-from itertools import count, dropwhile, takewhile
 import aoc
 import helpers
 from vec import V
@@ -13,18 +12,11 @@ DIRECTIONS = {
 
 
 def parse(lines: list[str], replacements = None):
-    if replacements:
-        new_lines = []
-        for line in lines:
-            for old, new in replacements:
-                line = line.replace(old, new)
-            new_lines.append(line)
-        lines = new_lines
-    grid_lines: list[str] = list(takewhile(lambda l: l != "", lines))
-    move_lines = lines[len(grid_lines) + 1:]
-    grid = {V(x, y): grid_lines[x][y] for x, y, v in helpers.cells(grid_lines)}
-    n, m = len(grid_lines), len(grid_lines[0])
-    moves = "".join((m for m in move_lines))
+    empty_index = lines.index("")
+    grid, moves = lines[:empty_index], lines[empty_index + 1:]
+    n, m = len(grid), len(grid[0])
+    grid = {V(x, y): grid[x][y] for x, y in helpers.range_2d(n, m)}
+    moves = "".join((m for m in moves))
     return grid, moves, n, m
 
 
@@ -53,7 +45,8 @@ def try_move(grid, to_move, dir) -> bool:
     return True
 
 
-def calc(grid, moves, n, m):
+def calc(lines):
+    grid, moves, n, m = parse(lines)
     robot = next(p for p in grid.keys() if grid[p] == "@")
     for move in moves:
         dir = DIRECTIONS[move]
@@ -67,9 +60,8 @@ def solve(r: aoc.Reader) -> None:
     lines = r.read_lines()
 
     print("Part One")
-    grid, moves, n, m = parse(lines)
-    print(calc(grid, moves, n, m))
+    print(calc(lines))
 
     print("Part Two")
-    grid, moves, n, m = parse(lines, replacements=[("#", "##"), ("O", "[]"), (".", ".."), ("@", "@.")])
-    print(calc(grid, moves, n, m))
+    lines = [l.replace("#", "##").replace("O", "[]").replace(".", "..").replace("@", "@.") for l in lines]
+    print(calc(lines))
