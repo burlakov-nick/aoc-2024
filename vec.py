@@ -28,6 +28,10 @@ class V:
         assert isinstance(other, V)
         return self.x == other.x and self.y == other.y
 
+    def __lt__(self, other: object) -> bool:
+        assert isinstance(other, V)
+        return (self.x, self.y) < (other.x, other.y)
+
     def __hash__(self) -> int:
         return (self.x, self.y).__hash__()
 
@@ -70,6 +74,12 @@ class V:
 
     def in_box(self, n: int, m: int) -> bool:
         return 0 <= self.x < n and 0 <= self.y < m
+
+    def clockwise(self) -> "V":
+        return V(self.y, -self.x)
+
+    def counter_clockwise(self) -> "V":
+        return V(-self.y, self.x)
 
 
 DIRECTIONS_4 = [V(0, -1), V(0, 1), V(-1, 0), V(1, 0)]
