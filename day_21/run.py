@@ -17,7 +17,7 @@ NUMERIC_START = V(3, 2)
 DIRECTIONAL_KEYS = "A<^v>"
 
 
-def dijkstra2(start, end, get_next):
+def dijkstra(start, end, get_next):
     dist = defaultdict(lambda: INF)
     queue = SortedSet()
 
@@ -53,7 +53,7 @@ def add_one_directional_keypad(cost: dict) -> dict:
 
     for i in DIRECTIONAL_KEYS:
         for j in DIRECTIONAL_KEYS:
-            new_cost[i, j] = dijkstra2((i, "A"), (j, "A"), get_next) if i != j else 1
+            new_cost[i, j] = dijkstra((i, "A"), (j, "A"), get_next) if i != j else 1
 
     return new_cost
 
@@ -72,7 +72,7 @@ def get_shortest_path(line, cost):
 
     start = (0, "A", NUMERIC_START)
     end = (len(line), "A", NUMERIC_START)
-    return dijkstra2(start, end, get_next)
+    return dijkstra(start, end, get_next)
 
 
 def solve(r: aoc.Reader) -> None:
