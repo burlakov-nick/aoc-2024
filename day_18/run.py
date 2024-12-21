@@ -15,7 +15,7 @@ def solve(r: aoc.Reader) -> None:
             p = queue[ptr]
             ptr += 1
             for to in p.neighbors_4_in_box(n, m):
-                if to not in walls and not dist.get(to):
+                if to not in walls and to not in dist:
                     queue.append(to)
                     dist[to] = dist[p] + 1
         return dist.get(V(n - 1, m - 1))
