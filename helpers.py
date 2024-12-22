@@ -1,4 +1,5 @@
-from collections import defaultdict
+from collections import defaultdict, deque
+from itertools import islice
 
 from typing_extensions import Callable, Iterable
 
@@ -26,6 +27,21 @@ def transpose[T](list2: list[list[T]]) -> list[list[T]]:
 
 def flatten[T](list2: list[list[T]]) -> list[T]:
     return [y for x in list2 for y in x]
+
+
+def last[T](xs: Iterable[T]) -> T:
+    result = None
+    for x in xs:
+        result = x
+    return result
+
+
+def sliding_window[T](xs: Iterable[T], n: int) -> tuple:
+    iterator = iter(xs)
+    window = deque(islice(iterator, n - 1), maxlen=n)
+    for x in iterator:
+        window.append(x)
+        yield tuple(window)
 
 
 def group_by(xs: Iterable, key: Callable) -> dict:
