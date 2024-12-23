@@ -1,12 +1,9 @@
 import networkx
-
 import aoc
-from helpers import flatten
 
 
 def solve(r: aoc.Reader) -> None:
     edges = [tuple(x.split("-")) for x in r.read_lines()]
-    nodes = list(set(flatten(edges)))
 
     G = networkx.Graph()
     G.add_edges_from(edges)
