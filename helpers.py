@@ -25,7 +25,7 @@ def transpose[T](list2: list[list[T]]) -> list[list[T]]:
     return list(map(list, zip(*list2)))
 
 
-def flatten[T](list2: list[list[T]]) -> list[T]:
+def flatten[T](list2: Iterable[Iterable[T]]) -> list[T]:
     return [y for x in list2 for y in x]
 
 
