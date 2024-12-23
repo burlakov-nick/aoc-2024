@@ -7,7 +7,6 @@ from helpers import flatten
 def solve(r: aoc.Reader) -> None:
     edges = [tuple(x.split("-")) for x in r.read_lines()]
     nodes = list(set(flatten(edges)))
-    tnodes = {x for x in nodes if x.startswith("t")}
 
     G = networkx.Graph()
     G.add_edges_from(edges)
@@ -16,7 +15,7 @@ def solve(r: aoc.Reader) -> None:
 
     result = 0
     for clique in networkx.algorithms.clique.enumerate_all_cliques(G):
-        if len(clique) == 3 and any(x in tnodes for x in clique):
+        if len(clique) == 3 and any(x.startswith("t") for x in clique):
             result += 1
     print(result)
 
