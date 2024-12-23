@@ -17,7 +17,5 @@ def solve(r: aoc.Reader) -> None:
     ))
 
     print("Part Two")
-    max_clique = max(len(c) for c in find_cliques(graph))
-    for clique in enumerate_all_cliques(graph):
-        if len(clique) == max_clique:
-            print(",".join(sorted(clique)))
+    cliques = sorted(find_cliques(graph), key=len, reverse=True)
+    print(",".join(sorted(cliques[0])))
