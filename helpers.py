@@ -25,6 +25,10 @@ def transpose[T](list2: list[list[T]]) -> list[list[T]]:
     return list(map(list, zip(*list2)))
 
 
+def count(xs, target) -> int:
+    return sum(1 for x in xs if x == target)
+
+
 def flatten[T](list2: Iterable[Iterable[T]]) -> list[T]:
     return [y for x in list2 for y in x]
 
